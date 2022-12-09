@@ -5,7 +5,11 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+
+from decouple import config
 from utils import utils
+from sms import sms
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
@@ -62,6 +66,7 @@ def quote_sheet_data():
 
 def main():
     text = quote_sheet_data()
+    sms.send_sms(body=text)
 
 if __name__ == '__main__':
     main()
